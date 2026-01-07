@@ -3,10 +3,10 @@ import pandas as pd
 
 def analyze_top_paths(df):
     """
-    تحليل أفضل 4 إجراءات (actions) حسب:
-    - البلد
-    - الحل
-    - البلد + الحل
+    Analysis of the top 4 actions by:
+    - Country
+    - Solution
+    - Country + Solution
     """
     # فقط الفرص الناجحة (أو جميعها إذا أردت)
     df_won = df[df['opportunity_stage'] == 'Won'].copy()
@@ -37,4 +37,4 @@ if __name__ == "__main__":
     top_solution.to_csv("top_by_solution.csv", index=False)
     top_both.to_csv("top_by_country_solution.csv", index=False)
     
-    print("✅ تم تحليل المسارات وحفظ النتائج.")
+    print("✅ The paths were analyzed and the results were saved.")
