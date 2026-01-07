@@ -4,7 +4,7 @@ import numpy as np
 
 def clean_data(file_path):
     """
-    تنظيف البيانات من ملف Excel.
+    Cleaning data from an Excel file.
     """
     # تحميل البيانات
     df = pd.read_excel(file_path)
@@ -27,4 +27,4 @@ def clean_data(file_path):
 if __name__ == "__main__":
     df_clean = clean_data("data_all1.xlsx")
     df_clean.to_csv("cleaned_data.csv", index=False)
-    print("✅ تم تنظيف البيانات وحفظها في 'cleaned_data.csv'")
+    print("✅ The data has been cleaned and saved in 'cleaned_data.csv'")
