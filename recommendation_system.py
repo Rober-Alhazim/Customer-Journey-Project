@@ -12,7 +12,7 @@ def load_components():
 
 def recommend_next_actions(country, solution, current_counts=None):
     """
-    توصية بأفضل 4 إجراءات باستخدام نموذج Decision Tree.
+    Recommendation of the 4 best actions using the Decision Tree model.
     """
     dt, le_country, le_solution, feature_cols = load_components()
     
@@ -44,23 +44,22 @@ def recommend_next_actions(country, solution, current_counts=None):
 
 def get_top4_from_analysis(country, solution):
     """
-    جلب أفضل 4 إجراءات من التحليل الإحصائي (الملفات المحفوظة).
+    Bring the best 4 actions from the statistical analysis (saved files).
     """
     top_country = pd.read_csv("top_by_country.csv")
     top_solution = pd.read_csv("top_by_solution.csv")
     top_both = pd.read_csv("top_by_country_solution.csv")
     
-    print(f"\n=== التوصيات لـ {country} + {solution} ===")
-    
-    print("\n1. حسب البلد:")
+    print(f"\n=== Recommendations for {country} + {solution} ===")
+    print("\n1. According to the country:")
     res1 = top_country[top_country['Country'] == country].nlargest(4, 'count')
     print(res1[['types', 'count']].to_string(index=False))
     
-    print("\n2. حسب الحل:")
+    print("\n2. According to the solution:")
     res2 = top_solution[top_solution['solution'] == solution].nlargest(4, 'count')
     print(res2[['types', 'count']].to_string(index=False))
     
-    print("\n3. حسب البلد والحل معًا:")
+    print("\n3. According to the country and the solution together:")
     res3 = top_both[
         (top_both['Country'] == country) &
         (top_both['solution'] == solution)
@@ -68,11 +67,11 @@ def get_top4_from_analysis(country, solution):
     if not res3.empty:
         print(res3[['types', 'count']].to_string(index=False))
     else:
-        print(" - لا توجد سجلات كافية لهذا المزيج.")
+        print(" - There are not enough records for this mix.")
 
 def main_recommendation(country, solution, new_action=None):
     """
-    عرض جميع أنواع التوصيات.
+    View all types of recommendations.
     """
     # تحديث current_counts إذا تم إدخال إجراء جديد
     current_counts = {}
@@ -83,7 +82,7 @@ def main_recommendation(country, solution, new_action=None):
     get_top4_from_analysis(country, solution)
     
     # 2. التوصيات باستخدام Decision Tree
-    print("\n4. باستخدام Decision Tree (احتمال الفوز):")
+    print("\n4. Using Decision Tree (Probability of Winning):")
     recs = recommend_next_actions(country, solution, current_counts)
     for action, prob in recs:
         print(f"   - {action}: {prob:.2%}")
