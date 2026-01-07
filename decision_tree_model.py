@@ -7,7 +7,7 @@ import joblib
 
 def build_decision_tree(df):
     """
-    بناء نموذج Decision Tree لتحديد أهم الإجراءات المؤثرة على الفوز.
+    Building a Decision Tree model to identify the most important actions that influence winning.
     """
     # حصر البيانات بالفرص (التي لها opportunity_id)
     df_opps = df[df['opportunity_id'].notna()].copy()
@@ -51,7 +51,7 @@ def build_decision_tree(df):
     
     # طباعة أهم الميزات
     importances = pd.Series(dt.feature_importances_, index=feature_cols).sort_values(ascending=False)
-    print("\nأبرز الإجراءات المؤثرة على الفوز:")
+    print("\n Key actions that influence winning:")
     print(importances.head(10))
     
     return dt, le_country, le_solution, feature_cols
@@ -60,4 +60,4 @@ if __name__ == "__main__":
     from data_cleaning import clean_data
     df = clean_data("data_all1.xlsx")
     build_decision_tree(df)
-    print("✅ تم تدريب نموذج Decision Tree وحفظه.")
+    print("✅ The Decision Tree model has been trained and saved.")
